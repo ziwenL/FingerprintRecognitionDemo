@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FingerprintDemo</string>
+
+    <string name="fingerprint_success">识别成功</string>
+    <string name="fingerprint_not_recognized">无法识别，请重试</string>
+    <string name="fingerprint_description">确认指纹以继续</string>
+    <string name="fingerprint_hint">请验证指纹</string>
+    <string name="fingerprint_recognizing">正在识别</string>
+</resources>
