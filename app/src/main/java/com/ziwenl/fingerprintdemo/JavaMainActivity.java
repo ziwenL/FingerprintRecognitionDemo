@@ -59,8 +59,26 @@ public class JavaMainActivity extends AppCompatActivity {
                                 case NOT_ENTRY:
                                     //TODO 未录入指纹
                                     break;
+                                //指纹识别功能可用
                                 case AVAILABLE:
-                                    //TODO 指纹识别可用
+                                    //4.调用指纹识别
+                                    if (mFingerprintRecognitionDialog == null) {
+                                        mFingerprintRecognitionDialog = new FingerprintRecognitionDialog();
+                                        mFingerprintRecognitionDialog.setCallback(new FingerprintRecognitionDialog.Callback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                //TODO 指纹识别成功
+                                                Toast.makeText(JavaMainActivity.this, "指纹识别成功", Toast.LENGTH_LONG).show();
+                                            }
+
+                                            @Override
+                                            public void onFailure() {
+                                                //TODO 指纹识别失败，且30秒无法再进行指纹识别
+                                                Toast.makeText(JavaMainActivity.this, "指纹识别失败", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                    }
+                                    mFingerprintRecognitionDialog.show(getSupportFragmentManager(), JavaMainActivity.class.getSimpleName());
                                     break;
                             }
                         }
@@ -95,38 +113,4 @@ public class JavaMainActivity extends AppCompatActivity {
         }
     }
     //------------权限请求相关 end------------
-
-    private void a() {
-        //指纹识别
-        //1.判断系统版本是否高于等于6.0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //2.确认拥有指纹识别权限--(虽然指纹权限为NormalPermissions,但国内部分厂商将此权限定为了危险权限,所以使用前先确定拥有该权限)
-            mRequestPermissionHelper.requestPermissions(JavaMainActivity.this, 2, "获取指纹识别权限", new PermissionCallback() {
-                @Override
-                public void requestPermissionSuccess(int requestCode) {
-                    //3.判断指纹识别功能是否可用
-                    FingerprintRecognitionHelper.AvailableStatus availableStatus = FingerprintRecognitionHelper.getFingerprintAuthAvailable(JavaMainActivity.this);
-                    switch (availableStatus) {
-                        case NOT_HAVE:
-                            //TODO 不存在指纹识别模块
-                            break;
-                        case NOT_LOCK:
-                            //TODO 未启用指纹识别功能
-                            break;
-                        case NOT_ENTRY:
-                            //TODO 未录入指纹
-                            break;
-                        case AVAILABLE:
-                            //TODO 指纹识别可用
-                            break;
-                    }
-                }
-
-                @Override
-                public void requestPermissionFailed(int requestCode) {
-                    //TODO 未授予指纹识别权限
-                }
-            }, Manifest.permission.USE_FINGERPRINT);
-        }
-    }
 }

@@ -99,11 +99,11 @@ public class FingerprintRecognitionHelper {
     /**
      * 创建CryptoObject
      *
-     * @param keyname KeyStore键值
+     * @param keyName KeyStore键值
      */
     @RequiresApi(Build.VERSION_CODES.M)
-    public FingerprintManager.CryptoObject createCryptoObject(String keyname) {
-        return new FingerprintManager.CryptoObject(createCipher(keyname));
+    public FingerprintManager.CryptoObject createCryptoObject(String keyName) {
+        return new FingerprintManager.CryptoObject(createCipher(keyName));
     }
 
     /**

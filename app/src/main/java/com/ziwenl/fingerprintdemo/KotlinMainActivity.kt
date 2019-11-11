@@ -13,7 +13,7 @@ import com.ziwenl.fingerprintdemo.utils.permission.RequestPermissionHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 
-class MainActivity : AppCompatActivity() {
+class KotlinMainActivity : AppCompatActivity() {
     private lateinit var mRequestPermissionHelper: RequestPermissionHelper
     private var mFingerprintRecognitionDialog: FingerprintRecognitionDialog? = null
 
@@ -29,14 +29,14 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 //2.确认拥有指纹识别权限--(虽然指纹权限为NormalPermissions,但国内部分厂商将此权限定为了危险权限,所以使用前先确定拥有该权限)
                 mRequestPermissionHelper.requestPermissions(
-                    this@MainActivity,
+                    this@KotlinMainActivity,
                     1,
                     "获取指纹识别权限",
                     object : PermissionCallback {
                         override fun requestPermissionSuccess(requestCode: Int) {
                             //3.判断指纹识别功能是否可用
                             val fingerprintAuthAvailableStatus =
-                                FingerprintRecognitionHelper.getFingerprintAuthAvailable(this@MainActivity)
+                                FingerprintRecognitionHelper.getFingerprintAuthAvailable(this@KotlinMainActivity)
                             when (fingerprintAuthAvailableStatus) {
                                 FingerprintRecognitionHelper.AvailableStatus.NOT_HAVE -> {
                                     //TODO 不存在指纹识别模块
@@ -57,18 +57,18 @@ class MainActivity : AppCompatActivity() {
                                             FingerprintRecognitionDialog.Callback {
                                             override fun onSuccess() {
                                                 //TODO 指纹识别成功
-                                                Toast.makeText(this@MainActivity,"指纹识别成功",Toast.LENGTH_LONG).show()
+                                                Toast.makeText(this@KotlinMainActivity,"指纹识别成功",Toast.LENGTH_LONG).show()
                                             }
 
                                             override fun onFailure() {
                                                 //TODO 指纹识别失败，且30秒无法再进行指纹识别
-                                                Toast.makeText(this@MainActivity,"指纹识别失败",Toast.LENGTH_LONG).show()
+                                                Toast.makeText(this@KotlinMainActivity,"指纹识别失败",Toast.LENGTH_LONG).show()
                                             }
                                         })
                                     }
                                     mFingerprintRecognitionDialog?.show(
                                         supportFragmentManager,
-                                        MainActivity::class.java.simpleName
+                                        KotlinMainActivity::class.java.simpleName
                                     )
                                 }
                             }
